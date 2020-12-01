@@ -8,35 +8,33 @@ import (
 	"strconv"
 )
 
-type solution []int16
+type solverFunc func([]int16) []int16
 
-type solverFunc func([]int16) solution
-
-func findTwoSolver(inputs []int16) solution {
+func findTwoSolver(inputs []int16) []int16 {
 	for _, i := range inputs {
 		for _, j := range inputs[1:] {
 			if i+j == 2020 {
-				return solution{i, j}
+				return []int16{i, j}
 			}
 		}
 	}
-	return solution{}
+	return []int16{}
 }
 
-func findThreeSolver(inputs []int16) solution {
+func findThreeSolver(inputs []int16) []int16 {
 	for _, i := range inputs {
 		for _, j := range inputs[1:] {
 			for _, k := range inputs[2:] {
 				if i+j+k == 2020 {
-					return solution{i, j, k}
+					return []int16{i, j, k}
 				}
 			}
 		}
 	}
-	return solution{}
+	return []int16{}
 }
 
-func product(inputs solution) int64 {
+func product(inputs []int16) int64 {
 	var p int64 = 1
 	for _, i := range inputs {
 		p = p * int64(i)
