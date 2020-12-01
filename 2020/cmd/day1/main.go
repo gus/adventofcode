@@ -8,12 +8,14 @@ import (
 	"strconv"
 )
 
+var expectedSum int16 = 2020
+
 type solverFunc func([]int16) []int16
 
 func findTwoSolver(inputs []int16) []int16 {
-	for _, i := range inputs {
+	for _, i := range inputs[:len(inputs)-1] {
 		for _, j := range inputs[1:] {
-			if i+j == 2020 {
+			if i+j == expectedSum {
 				return []int16{i, j}
 			}
 		}
@@ -22,10 +24,10 @@ func findTwoSolver(inputs []int16) []int16 {
 }
 
 func findThreeSolver(inputs []int16) []int16 {
-	for _, i := range inputs {
-		for _, j := range inputs[1:] {
+	for _, i := range inputs[:len(inputs)-2] {
+		for _, j := range inputs[1 : len(inputs)-1] {
 			for _, k := range inputs[2:] {
-				if i+j+k == 2020 {
+				if i+j+k == expectedSum {
 					return []int16{i, j, k}
 				}
 			}
