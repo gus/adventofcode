@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -9,7 +10,9 @@ import (
 
 type solution []int16
 
-func findTwo(inputs []int16) solution {
+type solverFunc func([]int16) solution
+
+func findTwoSolver(inputs []int16) solution {
 	for _, i := range inputs {
 		for _, j := range inputs[1:] {
 			if i+j == 2020 {
@@ -20,7 +23,7 @@ func findTwo(inputs []int16) solution {
 	return solution{}
 }
 
-func findThree(inputs []int16) solution {
+func findThreeSolver(inputs []int16) solution {
 	for _, i := range inputs {
 		for _, j := range inputs[1:] {
 			for _, k := range inputs[2:] {
@@ -41,7 +44,24 @@ func product(inputs solution) int64 {
 	return p
 }
 
+func usage(errMsg string) {
+	fmt.Printf("! %s\n\nusage: %s [--three]", errMsg, os.Args[0])
+	os.Exit(1)
+}
+
 func main() {
+	solve := findTwoSolver
+
+	args := os.Args[1:]
+	if len(args) > 1 {
+		usage("too many arguments")
+	} else if len(args) == 1 {
+		if args[0] != "--three" {
+			usage(fmt.Sprintf("unexpected argument: %s", args[0]))
+		}
+		solve = findThreeSolver
+	}
+
 	inputs := make([]int16, 0)
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
@@ -56,10 +76,10 @@ func main() {
 		log.Fatalf("error reading lines: %v", err)
 	}
 
-	// sol := findTwo(inputs)
-	sol := findThree(inputs)
+	sol := solve(inputs)
 	if len(sol) == 0 {
 		log.Println("no solution found")
+		os.Exit(1)
 	} else {
 		log.Printf("solution: %v = %d\n", sol, product(sol))
 	}
