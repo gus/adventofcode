@@ -10,7 +10,20 @@ import (
 	"github.com/gus/adventofcode/2020/internal/io"
 )
 
-var expectedSum int16 = 2020
+const expectedSum int16 = 2020
+
+func usage(errMsg string) {
+	fmt.Printf("! %s\n\nusage: %s [--three]", errMsg, os.Args[0])
+	os.Exit(1)
+}
+
+func product(inputs []int16) int64 {
+	var p int64 = 1
+	for _, i := range inputs {
+		p = p * int64(i)
+	}
+	return p
+}
 
 type solverFunc func([]int16) []int16
 
@@ -38,19 +51,6 @@ func FindThreeSolver(inputs []int16) []int16 {
 		}
 	}
 	return []int16{}
-}
-
-func product(inputs []int16) int64 {
-	var p int64 = 1
-	for _, i := range inputs {
-		p = p * int64(i)
-	}
-	return p
-}
-
-func usage(errMsg string) {
-	fmt.Printf("! %s\n\nusage: %s [--three]", errMsg, os.Args[0])
-	os.Exit(1)
 }
 
 func main() {
