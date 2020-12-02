@@ -3,11 +3,11 @@ package main
 // brute force implementation
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"os"
-	"strconv"
+
+	"github.com/gus/adventofcode/2020/internal/io"
 )
 
 var expectedSum int16 = 2020
@@ -67,17 +67,12 @@ func main() {
 	}
 
 	inputs := make([]int16, 0)
-	scanner := bufio.NewScanner(os.Stdin)
+	scanner := io.NewInt16Scanner(os.Stdin)
 	for scanner.Scan() {
-		num, err := strconv.ParseInt(scanner.Text(), 10, 16)
-		if err != nil {
-			log.Fatalf("expected int16: %v", err)
-		}
-		inputs = append(inputs, int16(num))
+		inputs = append(inputs, scanner.Int16())
 	}
-
 	if err := scanner.Err(); err != nil {
-		log.Fatalf("error reading lines: %v", err)
+		log.Fatalf("error reading input: %v", err)
 	}
 
 	sol := solve(inputs)
