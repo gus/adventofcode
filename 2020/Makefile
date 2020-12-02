@@ -12,7 +12,7 @@ CMDS := $(shell ls -d cmd/* | xargs -n 1 basename)
 $(CMDS):
 	$(eval CMD_PATH=cmd)
 	$(eval CMD=$@)
-	@echo "# building ${CMD}"
+	@echo "# using ${CMD}"
 
 # building
 
@@ -31,3 +31,6 @@ require-cmd:
 build: require-cmd
 	CGO_ENABLED=0 GOOS=linux go build -mod=readonly -v -o $(TARGET_DIR)/$(CMD) \
 		$(MODNAME)/$(CMD_PATH)/$(CMD)
+
+bench: require-cmd
+	CGO_ENABLED=0 GOOS=linux go test -mod=readonly -bench=. $(MODNAME)/$(CMD_PATH)/$(CMD)

@@ -1,5 +1,7 @@
 package main
 
+// brute force implementation
+
 import (
 	"bufio"
 	"fmt"
@@ -12,7 +14,8 @@ var expectedSum int16 = 2020
 
 type solverFunc func([]int16) []int16
 
-func findTwoSolver(inputs []int16) []int16 {
+// FindTwoSolver finds a solution for two inputs
+func FindTwoSolver(inputs []int16) []int16 {
 	for _, i := range inputs[:len(inputs)-1] {
 		for _, j := range inputs[1:] {
 			if i+j == expectedSum {
@@ -23,7 +26,8 @@ func findTwoSolver(inputs []int16) []int16 {
 	return []int16{}
 }
 
-func findThreeSolver(inputs []int16) []int16 {
+// FindThreeSolver finds a solution for three inputs
+func FindThreeSolver(inputs []int16) []int16 {
 	for _, i := range inputs[:len(inputs)-2] {
 		for _, j := range inputs[1 : len(inputs)-1] {
 			for _, k := range inputs[2:] {
@@ -50,7 +54,7 @@ func usage(errMsg string) {
 }
 
 func main() {
-	solve := findTwoSolver
+	solve := FindTwoSolver
 
 	args := os.Args[1:]
 	if len(args) > 1 {
@@ -59,7 +63,7 @@ func main() {
 		if args[0] != "--three" {
 			usage(fmt.Sprintf("unexpected argument: %s", args[0]))
 		}
-		solve = findThreeSolver
+		solve = FindThreeSolver
 	}
 
 	inputs := make([]int16, 0)
