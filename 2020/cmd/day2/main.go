@@ -35,7 +35,6 @@ func (pol *policy) validAsCount(pwd string) bool {
 
 func (pol *policy) validAsPositional(pwd string) bool {
 	pwr := []rune(pwd)
-	// if pol.min > len(pwr) || pol.max > len(pwr)
 	ra, rb := pwr[pol.min-1], pwr[pol.max-1]
 	return (ra == pol.c || rb == pol.c) && (ra != rb)
 }
