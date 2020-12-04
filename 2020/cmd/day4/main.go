@@ -86,20 +86,12 @@ func (d document) Scan(line string) {
 	}
 }
 
-func (d document) Valid() bool {
-	for k := range rules {
-		if _, ok := d[k]; !ok {
-			return false
+func (d document) Valid(strict bool) bool {
+	for k, test := range rules {
+		if input, ok := d[k]; (!strict && ok) || (strict && ok && test(input)) {
+			continue
 		}
-	}
-	return true
-}
-
-func (d document) ValidStrict() bool {
-	for k, vfunc := range rules {
-		if input, ok := d[k]; !ok || !vfunc(input) {
-			return false
-		}
+		return false
 	}
 	return true
 }
@@ -109,7 +101,7 @@ func (d document) ValidStrict() bool {
 func countValidDocs(docs []document, strict bool) int {
 	ctr := 0
 	for _, doc := range docs {
-		if (strict && doc.ValidStrict()) || (!strict && doc.Valid()) {
+		if doc.Valid(strict) {
 			ctr++
 		}
 	}
@@ -133,7 +125,7 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		log.Fatalf("error reading input: %v", err)
 	}
-	docs = append(docs, doc)
+	docs = append(docs, doc) // don't forget the last document
 
 	fmt.Printf("part 1: %d\n", countValidDocs(docs, false))
 	fmt.Printf("part 2: %d\n", countValidDocs(docs, true))
