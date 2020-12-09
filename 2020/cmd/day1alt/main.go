@@ -71,7 +71,7 @@ func main() {
 	}
 
 	inputs := &InputIndex{}
-	scanner := io.NewInt16Scanner(os.Stdin)
+	scanner := io.NewIntScanner(os.Stdin)
 	var min, max int16 = maxInput, 0
 	for scanner.Scan() {
 		num := scanner.Int16()

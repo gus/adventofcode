@@ -67,7 +67,7 @@ func main() {
 	}
 
 	inputs := make([]int16, 0)
-	scanner := io.NewInt16Scanner(os.Stdin)
+	scanner := io.NewIntScanner(os.Stdin)
 	for scanner.Scan() {
 		inputs = append(inputs, scanner.Int16())
 	}
