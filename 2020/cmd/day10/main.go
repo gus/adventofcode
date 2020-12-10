@@ -11,9 +11,9 @@ import (
 )
 
 func diffHist(a slices.Int64) maps.Int64 {
-	last := int64(0)
+	last := int64(a[0])
 	hist := maps.Int64{}
-	for _, j := range a {
+	for _, j := range a[1:] {
 		hist.Incr(j-last, 1)
 		last = j
 	}
@@ -32,7 +32,7 @@ func pathCount(a slices.Int64) int64 {
 	}
 
 	// memoize path count per adapter, reverse sum
-	pathCtrIdx := maps.Int64{a[len(a)-1]: 1}
+	pathCtrIdx := maps.Int64{a.Get(-1): 1}
 	for i := a.LastIndex() - 1; i >= 0; i-- {
 		for _, e := range edgeIdx[a[i]] {
 			pathCtrIdx.Incr(a[i], pathCtrIdx[e])
@@ -51,10 +51,10 @@ func main() {
 		log.Fatalf("error reading input: %v", err)
 	}
 
-	adapters.Sort()
-	adapters.Append(adapters.Get(-1) + 3)
+	adapters = adapters.Sort().Append(adapters.Get(-1) + 3)
 
-	part1 := diffHist(adapters[1:])
+	part1 := diffHist(adapters)
+	fmt.Printf("%v\n", part1)
 	fmt.Printf("part 1: %d\n", part1[1]*part1[3])
 	fmt.Printf("part 2: %d\n", pathCount(adapters))
 }

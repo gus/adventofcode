@@ -24,4 +24,7 @@ func (s Int64) Less(i, j int) bool { return s[i] < s[j] }
 func (s Int64) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
 
 // Sort is a convenience method.
-func (s Int64) Sort() { sort.Sort(s) }
+func (s Int64) Sort() Int64 {
+	sort.Sort(s)
+	return s
+}
