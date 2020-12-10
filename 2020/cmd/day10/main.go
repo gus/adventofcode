@@ -4,59 +4,55 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"sort"
 
 	"github.com/gus/adventofcode/2020/internal/io"
+	"github.com/gus/adventofcode/2020/internal/maps"
+	"github.com/gus/adventofcode/2020/internal/slices"
 )
 
-func diffHist(a []int) map[int]int {
-	last := int(0)
-	hist := map[int]int{}
+func diffHist(a slices.Int64) maps.Int64 {
+	last := int64(0)
+	hist := maps.Int64{}
 	for _, j := range a {
-		d := j - last
-		if _, ok := hist[d]; !ok {
-			hist[d] = 0
-		}
-		hist[d]++
+		hist.Incr(j-last, 1)
 		last = j
 	}
 	return hist
 }
 
-func pathCount(a []int) int64 {
-	edgeIdx := map[int][]int{}
+func pathCount(a slices.Int64) int64 {
+	edgeIdx := map[int64]slices.Int64{}
 
 	// graph adapter-edges for each adapter
 	for i, j := range a {
-		edgeIdx[j] = []int{}
+		edgeIdx[j] = slices.Int64{}
 		for ei := i + 1; ei < len(a) && a[ei]-j <= 3; ei++ {
-			edgeIdx[j] = append(edgeIdx[j], a[ei])
+			edgeIdx[j] = edgeIdx[j].Append(a[ei])
 		}
 	}
 
 	// memoize path count per adapter, reverse sum
-	pathCtrIdx := map[int]int64{a[len(a)-1]: 1}
-	for i := len(a) - 2; i >= 0; i-- {
-		pathCtrIdx[a[i]] = int64(0)
+	pathCtrIdx := maps.Int64{a[len(a)-1]: 1}
+	for i := a.LastIndex() - 1; i >= 0; i-- {
 		for _, e := range edgeIdx[a[i]] {
-			pathCtrIdx[a[i]] += pathCtrIdx[e]
+			pathCtrIdx.Incr(a[i], pathCtrIdx[e])
 		}
 	}
 	return pathCtrIdx[0]
 }
 
 func main() {
-	adapters := []int{0}
+	adapters := slices.Int64{0}
 	scanner := io.NewIntScanner(os.Stdin)
 	for scanner.Scan() {
-		adapters = append(adapters, scanner.Int())
+		adapters = adapters.Append(scanner.Int64())
 	}
 	if err := scanner.Err(); err != nil {
 		log.Fatalf("error reading input: %v", err)
 	}
 
-	sort.Ints(adapters)
-	adapters = append(adapters, adapters[len(adapters)-1]+3)
+	adapters.Sort()
+	adapters.Append(adapters.Get(-1) + 3)
 
 	part1 := diffHist(adapters[1:])
 	fmt.Printf("part 1: %d\n", part1[1]*part1[3])
