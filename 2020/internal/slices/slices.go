@@ -28,3 +28,15 @@ func (s Int64) Sort() Int64 {
 	sort.Sort(s)
 	return s
 }
+
+// helpers
+
+// IndexOf returns the index of the element in the given slice
+func IndexOf(s []interface{}, expected interface{}) int {
+	for i, v := range s {
+		if v == expected {
+			return i
+		}
+	}
+	return -1
+}
