@@ -7,3 +7,19 @@ func AbsInt(n int) int {
 	}
 	return -1 * n
 }
+
+// MinInt returns the min int between a and b.
+func MinInt(a, b int) int {
+	if b < a {
+		return b
+	}
+	return a
+}
+
+// MaxInt returns the max int between a and b.
+func MaxInt(a, b int) int {
+	if b > a {
+		return b
+	}
+	return a
+}
