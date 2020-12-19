@@ -258,6 +258,6 @@ func main() {
 	for i := 0; i < 6; i++ {
 		hc, activeHCubes = hcubeCycle(hc.expand())
 	}
-	fmt.Printf("%v\n", hc)
+	// fmt.Printf("%v\n", hc)
 	fmt.Printf("part 1: %d\n", activeHCubes)
 }
