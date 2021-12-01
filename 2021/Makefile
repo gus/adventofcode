@@ -1,37 +1,39 @@
-TARGET_DIR := targets
-#MODNAME := github.com/gus/adventofcode/2021
-MODNAME := $(shell cat go.mod | grep '^module' | awk '{print $$2}')
-CMD_PATH := "cmd"
-CMD := ""
+ROOTDIR := $(shell git rev-parse --show-toplevel)
 
-# commands/targets
+CMDS := $(shell ls -F cmd |  grep -E '/$$' | xargs -n 1 basename | tr "\n" " ")
 
-CMDS := $(shell ls -d cmd/* | xargs -n 1 basename)
+GO      := gotip
+GOMOD   := $(GO) mod
+GOBUILD := $(GO) build
+GORUN   := $(GO) run
+GOTEST  := $(GO) test -cover
+GOBENCH  := $(GO) test -run ZZZ -bench .
 
-.PHONY: $(CMDS)
+GOBINPATH := $(shell go env GOPATH)/bin
+GO_MODULE := $(shell cat go.mod | grep '^module' | awk '{print $$2}')
 
-$(CMDS):
-	$(eval CMD_PATH=cmd)
-	$(eval CMD=$@)
-	@echo "# using ${CMD}"
+TARGET_DIR := ./targets
+
+# installation
+
+.PHONY: tidy install.tools
+
+tidy:
+	@echo "# running go mod tidy"
+	@$(GOMOD) tidy
+
+install.tools: tidy
+	@echo "# installing tools from $(GO_MODULE)/tools"
+	@$(GO) install $$($(GO) list -f '{{join .Imports " " }}' -tags tools $(GO_MODULE)/tools)
 
 # building
 
-.PHONY: require-cmd build
+.PHONY: bench $(CMDS)
 
-require-cmd:
-	@if [ "X$(CMD)X" = "XX" ]; then \
-		echo "! CMD required but not provided"; \
-		exit 1; \
-	fi
-	@if [ "X$(CMD_PATH)X" = "XX" ]; then \
-		echo "! CMD_PATH required but not provided"; \
-		exit 1; \
-	fi
+$(CMDS): install.tools
+	@echo "# building $@ command"
+	$(GOBUILD) -o $(TARGET_DIR)/$@ ./cmd/$@
 
-build: require-cmd
-	CGO_ENABLED=0 GOOS=linux go build -mod=readonly -v -o $(TARGET_DIR)/$(CMD) \
-		$(MODNAME)/$(CMD_PATH)/$(CMD)
-
-bench: require-cmd
-	CGO_ENABLED=0 GOOS=linux go test -mod=readonly -bench=. $(MODNAME)/$(CMD_PATH)/$(CMD)
+bench:
+	@echo "# running all benchmarks"
+	$(GOBENCH) $(GO_MODULE)/...
