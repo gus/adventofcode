@@ -7,15 +7,23 @@ import (
 )
 
 // IntScanner provides support for scanning a token as an int at various sizes.
+// The base of the inputs defaults to 10, but can be adjusted with the Base()
+// function.
 type IntScanner struct {
 	*bufio.Scanner
-	err error
-	num int64
+	err  error
+	num  int64
+	base int
 }
 
 // NewIntScanner creates a new Int16Scanner.
 func NewIntScanner(r io.Reader) *IntScanner {
-	return &IntScanner{bufio.NewScanner(r), nil, 0}
+	return &IntScanner{bufio.NewScanner(r), nil, 0, 10}
+}
+
+// Base changes the default base to use when parsing each input.
+func (s *IntScanner) Base(base int) {
+	s.base = base
 }
 
 // Err first returns any error from scanning, else it returns any error from parsing a token as an int16.
@@ -30,7 +38,7 @@ func (s *IntScanner) Err() error {
 // fails, an error is recorcded and false is returned. A false is returned if the Scan itself failed.
 func (s *IntScanner) Scan() bool {
 	if s.Scanner.Scan() {
-		i, err := strconv.ParseInt(s.Text(), 10, 64)
+		i, err := strconv.ParseInt(s.Text(), s.base, 64)
 		s.num = int64(i)
 		s.err = err
 		return s.err == nil
