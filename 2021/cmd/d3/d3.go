@@ -49,9 +49,7 @@ func mcb(d diags, bpos int) int {
 
 	ctr := 0
 	for _, s := range d {
-		if s[bpos] == 1 {
-			ctr++
-		}
+		ctr += s[bpos]
 	}
 	if ctr >= len(d)-ctr {
 		return 1
