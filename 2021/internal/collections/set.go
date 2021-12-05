@@ -18,3 +18,19 @@ func (s Set[T]) Contains(elem T) bool {
 	_, ok := s[elem]
 	return ok
 }
+
+func (s Set[T]) Intersect(o Set[T]) Set[T] {
+	snew := Set[T]{}
+	for e := range o {
+		if s.Contains(e) {
+			snew.Add(e)
+		}
+	}
+	return snew
+}
+
+func (s Set[T]) Merge(o Set[T]) {
+	for e := range o {
+		s.Add(e)
+	}
+}

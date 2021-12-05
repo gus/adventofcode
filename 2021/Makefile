@@ -28,11 +28,15 @@ install.tools: tidy
 
 # building
 
-.PHONY: bench $(CMDS)
+.PHONY: bench test $(CMDS)
 
 $(CMDS): install.tools
 	@echo "# building $@ command"
 	$(GOBUILD) -o $(TARGET_DIR)/$@ ./cmd/$@
+
+test:
+	@echo "# running all tests"
+	@$(GOTEST) $(GO_MODULE)/...
 
 bench:
 	@echo "# running all benchmarks"
