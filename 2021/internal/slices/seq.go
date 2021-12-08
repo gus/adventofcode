@@ -1,19 +1,14 @@
 package slices
 
-import "github.com/gus/adventofcode/2021/internal/types"
+import (
+	"github.com/gus/adventofcode/2021/internal/collections"
+	"github.com/gus/adventofcode/2021/internal/types"
+)
 
 func Sequence[T types.AnyInt](a, b T, inclusive bool) []T {
-	step := T(1)
-	if a > b {
-		step = -step
-	}
-
 	seq := []T{}
-	for i := a; i != b; i += step {
+	collections.IterateRange(a, b, inclusive, func(i T) {
 		seq = append(seq, i)
-	}
-	if inclusive {
-		seq = append(seq, b)
-	}
+	})
 	return seq
 }

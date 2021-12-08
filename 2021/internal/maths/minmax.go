@@ -15,3 +15,10 @@ func Max[T types.OrderedNumeric](a, b T) T {
 	}
 	return a
 }
+
+func Abs[T types.OrderedNumeric](a T) T {
+	if a < 0 {
+		return -a
+	}
+	return a
+}
