@@ -23,6 +23,7 @@ var digmask = map[byte]int8{
 
 type Digit struct {
 	source string
+	len    int
 	code   int8
 }
 
@@ -31,7 +32,7 @@ func NewDigit(source string) Digit {
 	for i := 0; i < len(source); i++ {
 		code |= digmask[source[i]]
 	}
-	return Digit{source, code}
+	return Digit{source, len(source), code}
 }
 
 type Entry struct {
@@ -51,7 +52,7 @@ func solvep1(entries []Entry) int {
 	ctrs := map[int]int{}
 	for _, e := range entries {
 		for _, output := range e.outputs {
-			ctrs[len(output.source)]++
+			ctrs[output.len]++
 		}
 	}
 	return ctrs[2] + ctrs[4] + ctrs[3] + ctrs[7] // 1s, 4s, 7s, 8s
@@ -69,31 +70,31 @@ func genkey(entry Entry) map[int8]int {
 	copy(sigs, entry.signals)
 
 	key := map[int8]int{}
-	one, sigs := slices.FindPop(sigs, func(d Digit) bool { return len(d.source) == 2 })
+	one, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 2 })
 	key[one.code] = 1
 
-	four, sigs := slices.FindPop(sigs, func(d Digit) bool { return len(d.source) == 4 })
+	four, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 4 })
 	key[four.code] = 4
 
-	seven, sigs := slices.FindPop(sigs, func(d Digit) bool { return len(d.source) == 3 })
+	seven, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 3 })
 	key[seven.code] = 7
 
-	eight, sigs := slices.FindPop(sigs, func(d Digit) bool { return len(d.source) == 7 })
+	eight, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 7 })
 	key[eight.code] = 8
 
-	three, sigs := slices.FindPop(sigs, func(d Digit) bool { return len(d.source) == 5 && d.code&one.code == one.code })
+	three, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 5 && d.code&one.code == one.code })
 	key[three.code] = 3
 
-	nine, sigs := slices.FindPop(sigs, func(d Digit) bool { return len(d.source) == 6 && d.code&four.code == four.code })
+	nine, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 6 && d.code&four.code == four.code })
 	key[nine.code] = 9
 
-	zero, sigs := slices.FindPop(sigs, func(d Digit) bool { return len(d.source) == 6 && d.code&one.code == one.code })
+	zero, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 6 && d.code&one.code == one.code })
 	key[zero.code] = 0
 
-	six, sigs := slices.FindPop(sigs, func(d Digit) bool { return len(d.source) == 6 })
+	six, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 6 })
 	key[six.code] = 6
 
-	five, sigs := slices.FindPop(sigs, func(d Digit) bool { return len(d.source) == 5 && d.code&nine.code == d.code })
+	five, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 5 && d.code&nine.code == d.code })
 	key[five.code] = 5
 
 	key[sigs[0].code] = 2
