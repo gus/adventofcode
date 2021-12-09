@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -113,8 +112,6 @@ func solvep2(entries []Entry) int {
 }
 
 func main() {
-	flag.Parse()
-
 	entries := []Entry{}
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {

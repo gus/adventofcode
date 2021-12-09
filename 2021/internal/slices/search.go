@@ -1,8 +1,8 @@
 package slices
 
-type FindFn[T any] func(elem T) bool
+type SearchFn[T any] func(elem T) bool
 
-func Find[T any](s []T, fn FindFn[T]) T {
+func Find[T any](s []T, fn SearchFn[T]) T {
 	for _, elem := range s {
 		if fn(elem) {
 			return elem
@@ -12,7 +12,7 @@ func Find[T any](s []T, fn FindFn[T]) T {
 	return zero
 }
 
-func FindPop[T any](s []T, fn FindFn[T]) (T, []T) {
+func FindPop[T any](s []T, fn SearchFn[T]) (T, []T) {
 	for i := 0; i < len(s); i++ {
 		elem := s[i]
 		if fn(elem) {
@@ -22,4 +22,13 @@ func FindPop[T any](s []T, fn FindFn[T]) (T, []T) {
 	}
 	var zero T
 	return zero, s
+}
+
+func Any[T any](s []T, fn SearchFn[T]) bool {
+	for _, elem := range s {
+		if fn(elem) {
+			return true
+		}
+	}
+	return false
 }
