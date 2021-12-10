@@ -5,8 +5,8 @@ import "github.com/gus/adventofcode/2021/internal/types"
 type ReduceFunc[T any, A types.OrderedNumeric] func(acc A, val T) A
 
 func Reduce[T any, A types.OrderedNumeric](s []T, acc A, fn ReduceFunc[T, A]) A {
-	for _, i := range s {
-		acc = fn(acc, i)
+	for _, v := range s {
+		acc = fn(acc, v)
 	}
 	return acc
 }

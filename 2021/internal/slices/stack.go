@@ -8,6 +8,8 @@ func NewStack[T any](elems ...T) *Stack[T] {
 	return &Stack[T]{elems}
 }
 
+// Slice returns the stack as a slice, with elements in reverse order for easier
+// consumption.
 func (s *Stack[T]) Slice() []T {
 	rs := make([]T, len(s.s))
 	for i := 0; i < len(s.s); i++ {
