@@ -11,7 +11,7 @@ func TestFindStrings(t *testing.T) {
 	testCases := []struct {
 		desc string
 		in   []string
-		fn   slices.FindFn[string]
+		fn   slices.SearchFn[string]
 		out  string
 	}{
 		{

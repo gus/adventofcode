@@ -2,9 +2,9 @@ package slices
 
 import "github.com/gus/adventofcode/2021/internal/types"
 
-type ReduceFunc[T types.OrderedNumeric] func(acc T, val T) T
+type ReduceFunc[T any, A types.OrderedNumeric] func(acc A, val T) A
 
-func Reduce[T types.OrderedNumeric](s []T, acc T, fn ReduceFunc[T]) T {
+func Reduce[T any, A types.OrderedNumeric](s []T, acc A, fn ReduceFunc[T, A]) A {
 	for _, i := range s {
 		acc = fn(acc, i)
 	}

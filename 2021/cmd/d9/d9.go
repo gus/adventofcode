@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"fmt"
 	"log"
 	"math"
@@ -121,8 +120,6 @@ func solve(grid Grid) (p1 int, p2 int) {
 }
 
 func main() {
-	flag.Parse()
-
 	grid := Grid{}
 
 	scanner := bufio.NewScanner(os.Stdin)
