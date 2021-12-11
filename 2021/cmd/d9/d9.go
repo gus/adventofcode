@@ -9,8 +9,8 @@ import (
 	"strings"
 
 	"github.com/gus/adventofcode/2021/internal/collections"
+	"github.com/gus/adventofcode/2021/internal/collections/slices"
 	"github.com/gus/adventofcode/2021/internal/geom"
-	"github.com/gus/adventofcode/2021/internal/slices"
 )
 
 func scanBasin(plane *geom.Plane[int], pt geom.P2) collections.Set[geom.P2] {

@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/gus/adventofcode/2021/internal/slices"
+	"github.com/gus/adventofcode/2021/internal/collections/slices"
 )
 
 var digmask = map[byte]int8{

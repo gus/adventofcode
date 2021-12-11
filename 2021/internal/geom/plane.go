@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/gus/adventofcode/2021/internal/slices"
+	"github.com/gus/adventofcode/2021/internal/collections/slices"
 )
 
 // P2 is a 2-dimensional Point.

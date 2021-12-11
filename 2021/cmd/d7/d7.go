@@ -10,8 +10,8 @@ import (
 	"strings"
 
 	"github.com/gus/adventofcode/2021/internal/collections"
+	"github.com/gus/adventofcode/2021/internal/collections/slices"
 	"github.com/gus/adventofcode/2021/internal/maths"
-	"github.com/gus/adventofcode/2021/internal/slices"
 )
 
 func optimalPosition(crabs []int, scalefn func(x int) int) int {

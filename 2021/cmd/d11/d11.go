@@ -10,8 +10,8 @@ import (
 	"strings"
 
 	"github.com/gus/adventofcode/2021/internal/collections"
+	"github.com/gus/adventofcode/2021/internal/collections/slices"
 	"github.com/gus/adventofcode/2021/internal/geom"
-	"github.com/gus/adventofcode/2021/internal/slices"
 )
 
 func solve(p *geom.Plane[int], steps int) (int, int) {

@@ -3,7 +3,7 @@ package slices_test
 import (
 	"testing"
 
-	"github.com/gus/adventofcode/2021/internal/slices"
+	"github.com/gus/adventofcode/2021/internal/collections/slices"
 	"github.com/stretchr/testify/assert"
 )
 

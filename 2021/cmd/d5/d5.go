@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/gus/adventofcode/2021/internal/slices"
+	"github.com/gus/adventofcode/2021/internal/collections/slices"
 )
 
 type Point struct {

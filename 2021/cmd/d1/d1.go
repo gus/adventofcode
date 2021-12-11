@@ -5,8 +5,8 @@ import (
 	"math"
 	"os"
 
+	"github.com/gus/adventofcode/2021/internal/collections/slices"
 	"github.com/gus/adventofcode/2021/internal/io"
-	"github.com/gus/adventofcode/2021/internal/slices"
 )
 
 func part1solution(inputs []int16) int {

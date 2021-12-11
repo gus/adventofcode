@@ -7,7 +7,7 @@ import (
 	"os"
 	"sort"
 
-	"github.com/gus/adventofcode/2021/internal/slices"
+	"github.com/gus/adventofcode/2021/internal/collections/slices"
 )
 
 var corruptScores = map[byte]int{
