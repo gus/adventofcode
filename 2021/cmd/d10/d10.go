@@ -43,9 +43,9 @@ func p1scan(line string) (int, int) {
 			panic("whoops! too many closers in input")
 		}
 	}
-	return 0, int(slices.Reduce(expects.Slice(), 0, func(acc int, elem byte) int {
+	return 0, slices.Reduce(expects, 0, func(acc int, elem byte) int {
 		return acc*5 + completionScores[elem]
-	}))
+	})
 }
 
 func main() {
