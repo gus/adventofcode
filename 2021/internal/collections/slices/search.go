@@ -1,34 +1,28 @@
 package slices
 
+import "github.com/gus/adventofcode/2021/internal/types"
+
 type SearchFn[T any] func(elem T) bool
 
-func Find[T any](s []T, fn SearchFn[T]) T {
-	for _, elem := range s {
+func First[T any](s []T, fn SearchFn[T]) (int, T) {
+	for i, elem := range s {
 		if fn(elem) {
-			return elem
+			return i, elem
 		}
 	}
-	var zero T
-	return zero
+	return -1, types.Zero[T]()
 }
 
-func FindPop[T any](s []T, fn SearchFn[T]) (T, []T) {
-	for i := 0; i < len(s); i++ {
-		elem := s[i]
-		if fn(elem) {
-			s = append(s[:i], s[i+1:]...)
-			return elem, s
-		}
+func RemoveFirst[T any](s []T, fn SearchFn[T]) T {
+	i, elem := First(s, fn)
+	if i > -1 {
+		sp := &s
+		*sp = append((*sp)[:i], (*sp)[i+1:]...)
 	}
-	var zero T
-	return zero, s
+	return elem
 }
 
 func Any[T any](s []T, fn SearchFn[T]) bool {
-	for _, elem := range s {
-		if fn(elem) {
-			return true
-		}
-	}
-	return false
+	i, _ := First(s, fn)
+	return i > -1
 }

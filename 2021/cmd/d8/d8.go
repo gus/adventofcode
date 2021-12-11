@@ -69,31 +69,31 @@ func genkey(entry Entry) map[int8]int {
 	copy(sigs, entry.signals)
 
 	key := map[int8]int{}
-	one, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 2 })
+	one := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 2 })
 	key[one.code] = 1
 
-	four, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 4 })
+	four := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 4 })
 	key[four.code] = 4
 
-	seven, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 3 })
+	seven := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 3 })
 	key[seven.code] = 7
 
-	eight, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 7 })
+	eight := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 7 })
 	key[eight.code] = 8
 
-	three, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 5 && d.code&one.code == one.code })
+	three := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 5 && d.code&one.code == one.code })
 	key[three.code] = 3
 
-	nine, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 6 && d.code&four.code == four.code })
+	nine := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 6 && d.code&four.code == four.code })
 	key[nine.code] = 9
 
-	zero, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 6 && d.code&one.code == one.code })
+	zero := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 6 && d.code&one.code == one.code })
 	key[zero.code] = 0
 
-	six, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 6 })
+	six := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 6 })
 	key[six.code] = 6
 
-	five, sigs := slices.FindPop(sigs, func(d Digit) bool { return d.len == 5 && d.code&nine.code == d.code })
+	five := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 5 && d.code&nine.code == d.code })
 	key[five.code] = 5
 
 	key[sigs[0].code] = 2
