@@ -57,18 +57,13 @@ func solvep1(entries []Entry) int {
 	return ctrs[2] + ctrs[4] + ctrs[3] + ctrs[7] // 1s, 4s, 7s, 8s
 }
 
-// 1, 4, 7, 8 (pop)
-// 3: 5 segments, contains a 1 (pop)
-// 9: 6 segments, contains a 4 (pop)
-// 0: 6 segments, contains a 1 (pop)
-// 6: 6 segments (pop)
-// 5: 5 segments, can fit in 9 (pop)
-// 2: last one
-func genkey(entry Entry) map[int8]int {
+func decipherKey(entry Entry) map[int8]int {
 	sigs := make([]Digit, len(entry.signals))
 	copy(sigs, entry.signals)
 
 	key := map[int8]int{}
+
+	// 1, 4, 7, 8 are known
 	one := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 2 })
 	key[one.code] = 1
 
@@ -81,21 +76,27 @@ func genkey(entry Entry) map[int8]int {
 	eight := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 7 })
 	key[eight.code] = 8
 
+	// 3: 5 segments, contains a 1
 	three := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 5 && d.code&one.code == one.code })
 	key[three.code] = 3
 
+	// 9: 6 segments, contains a 4
 	nine := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 6 && d.code&four.code == four.code })
 	key[nine.code] = 9
 
+	// 0: 6 segments, contains a 1
 	zero := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 6 && d.code&one.code == one.code })
 	key[zero.code] = 0
 
+	// 6: 6 segments
 	six := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 6 })
 	key[six.code] = 6
 
+	// 5: 5 segments, can fit in 9
 	five := slices.RemoveFirst(sigs, func(d Digit) bool { return d.len == 5 && d.code&nine.code == d.code })
 	key[five.code] = 5
 
+	// 2: last one remaining
 	key[sigs[0].code] = 2
 
 	return key
@@ -104,7 +105,7 @@ func genkey(entry Entry) map[int8]int {
 func solvep2(entries []Entry) int {
 	sum := 0
 	for _, entry := range entries {
-		key := genkey(entry)
+		key := decipherKey(entry)
 		outs := entry.outputs
 		sum += key[outs[0].code]*1e3 + key[outs[1].code]*1e2 + key[outs[2].code]*1e1 + key[outs[3].code]
 	}
