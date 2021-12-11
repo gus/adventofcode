@@ -16,12 +16,12 @@ import (
 
 func solve(p *geom.Plane[int], steps int) (int, int) {
 	flashes := 0
-	var flashed collections.Set[geom.Point]
+	var flashed collections.Set[geom.P2]
 
-	changeId := p.OnChange(func(old, new int, pt geom.Point) {
+	changeId := p.OnChange(func(old, new int, pt geom.P2) {
 		if new == 0 {
 			flashed.Add(pt)
-			slices.Each(p.Neighbors(pt), func(idx int, npt geom.Point) {
+			slices.Each(p.Neighbors(pt), func(idx int, npt geom.P2) {
 				if !flashed.Contains(npt) {
 					p.Set((p.Get(npt)+1)%10, npt)
 				}
@@ -32,8 +32,8 @@ func solve(p *geom.Plane[int], steps int) (int, int) {
 
 	for step := 0; step < steps; step++ {
 		// reset flash check
-		flashed = collections.NewSet[geom.Point]()
-		p.WalkAll(func(lvl int, pt geom.Point) bool {
+		flashed = collections.NewSet[geom.P2]()
+		p.WalkAll(func(lvl int, pt geom.P2) bool {
 			if !flashed.Contains(pt) {
 				p.Set((lvl+1)%10, pt)
 			}
