@@ -46,3 +46,11 @@ func Reduce[T any, A any](st []T, acc A, fn ReduceFn[T, A]) A {
 func Sum[T types.OrderedNumeric](s []T) T {
 	return Reduce(s, T(0), func(acc, i T) T { return acc + i })
 }
+
+type IterFn[T any] func(idx int, elem T)
+
+func Each[T any](ss []T, fn IterFn[T]) {
+	for i, s := range ss {
+		fn(i, s)
+	}
+}

@@ -13,7 +13,7 @@ import (
 	"github.com/gus/adventofcode/2021/internal/slices"
 )
 
-func scanBasin(grid geom.Plane[int], pt geom.Point) collections.Set[geom.Point] {
+func scanBasin(plane *geom.Plane[int], pt geom.Point) collections.Set[geom.Point] {
 	set := collections.NewSet[geom.Point]()
 	pcheck := func(h int, pt geom.Point) bool {
 		if h < 9 {
@@ -23,29 +23,29 @@ func scanBasin(grid geom.Plane[int], pt geom.Point) collections.Set[geom.Point] 
 	}
 	vwalker := func(h int, pt geom.Point) bool {
 		if h < 9 {
-			grid.WalkLeft(pt, pcheck)
-			grid.WalkRight(geom.Point{X: pt.X + 1, Y: pt.Y}, pcheck)
+			plane.WalkLeft(pt, pcheck)
+			plane.WalkRight(geom.Point{X: pt.X + 1, Y: pt.Y}, pcheck)
 		}
 		return h < 9
 	}
 	hwalker := func(h int, pt geom.Point) bool {
 		if h < 9 {
-			grid.WalkUp(pt, vwalker)
-			grid.WalkDown(geom.Point{X: pt.X, Y: pt.Y + 1}, vwalker)
+			plane.WalkUp(pt, vwalker)
+			plane.WalkDown(geom.Point{X: pt.X, Y: pt.Y + 1}, vwalker)
 		}
 		return h < 9
 	}
-	grid.WalkLeft(pt, hwalker)
-	grid.WalkRight(geom.Point{X: pt.X + 1, Y: pt.Y}, hwalker)
+	plane.WalkLeft(pt, hwalker)
+	plane.WalkRight(geom.Point{X: pt.X + 1, Y: pt.Y}, hwalker)
 	return set
 }
 
-func solve(grid geom.Plane[int]) (p1 int, p2 int) {
+func solve(plane *geom.Plane[int]) (p1 int, p2 int) {
 	basins := []int{}
-	grid.WalkAll(func(h int, pt geom.Point) bool {
-		if !slices.Any(grid.LocalNeighbors(pt), func(n int) bool { return n <= h }) {
+	plane.WalkAll(func(h int, pt geom.Point) bool {
+		if !slices.Any(plane.LocalNeighbors(pt), func(npt geom.Point) bool { return plane.Get(npt) <= h }) {
 			p1 += h + 1
-			basins = append(basins, len(scanBasin(grid, pt)))
+			basins = append(basins, len(scanBasin(plane, pt)))
 		}
 		return true
 	})
@@ -55,13 +55,12 @@ func solve(grid geom.Plane[int]) (p1 int, p2 int) {
 }
 
 func main() {
-	// plane := Grid{}
-	plane := geom.Plane[int]{}
+	plane := geom.NewPlane[int]()
 
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		row, _ := slices.Atoi(strings.Split(scanner.Text(), ""))
-		plane = append(plane, row)
+		plane.Append(row)
 	}
 	if err := scanner.Err(); err != nil {
 		log.Fatalf("error reading input: %v", err)
