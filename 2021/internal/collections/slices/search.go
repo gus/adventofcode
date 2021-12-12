@@ -26,3 +26,13 @@ func Any[T any](s []T, fn SearchFn[T]) bool {
 	i, _ := First(s, fn)
 	return i > -1
 }
+
+func Filter[T any](s []T, fn SearchFn[T]) []T {
+	ts := []T{}
+	for _, elem := range s {
+		if fn(elem) {
+			ts = append(ts, elem)
+		}
+	}
+	return ts
+}
