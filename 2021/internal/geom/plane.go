@@ -23,8 +23,16 @@ type Plane[T any] struct {
 	onChangeFns []PlaneChangeFn[T]
 }
 
-func NewPlane[T any]() *Plane[T] {
+func NewEmptyPlane[T any]() *Plane[T] {
 	return &Plane[T]{}
+}
+
+func NewPlane[T any](bounds P2) *Plane[T] {
+	p := &Plane[T]{}
+	for y := 0; y < bounds.Y; y++ {
+		p.Append(make([]T, bounds.X))
+	}
+	return p
 }
 
 func (p *Plane[T]) Append(r []T) *Plane[T] {

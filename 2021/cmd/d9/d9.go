@@ -55,7 +55,7 @@ func solve(plane *geom.Plane[int]) (p1 int, p2 int) {
 }
 
 func main() {
-	plane := geom.NewPlane[int]()
+	plane := geom.NewEmptyPlane[int]()
 
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {

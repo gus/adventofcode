@@ -53,7 +53,7 @@ var (
 
 func main() {
 	flag.Parse()
-	plane := geom.NewPlane[int]()
+	plane := geom.NewEmptyPlane[int]()
 
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
