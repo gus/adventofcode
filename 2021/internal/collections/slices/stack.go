@@ -3,7 +3,9 @@ package slices
 type Stack[T any] []T
 
 func NewStack[T any](elems ...T) Stack[T] {
-	return Stack[T](elems)
+	s := make(Stack[T], 0)
+	s = append(s, elems...)
+	return s
 }
 
 func (s *Stack[T]) Push(v T) {

@@ -5,6 +5,7 @@ import (
 	"math"
 
 	"github.com/gus/adventofcode/2021/internal/collections/slices"
+	"github.com/gus/adventofcode/2021/internal/types"
 )
 
 // P2 is a 2-dimensional Point.
@@ -46,18 +47,23 @@ func (p *Plane[T]) OnChange(fn PlaneChangeFn[T]) int {
 }
 
 func (p *Plane[T]) ClearChange(id int) {
-	// if changeId == 0 {
-	// 	p.onChangeFns = p.onChangeFns[1:]
-	// }
 	p.onChangeFns = append(p.onChangeFns[:id], p.onChangeFns[id+1:]...)
 }
 
-func (p *Plane[T]) Get(pt P2) T {
-	return p.grid[pt.Y][pt.X]
+func (p *Plane[T]) Contains(pt P2) bool {
+	b := p.Bounds()
+	return pt.X > -1 && pt.X < b.X && pt.Y > -1 && pt.Y < b.Y
+}
+
+func (p *Plane[T]) Get(pt P2) (T, bool) {
+	if !p.Contains(pt) {
+		return types.Zero[T](), false
+	}
+	return p.grid[pt.Y][pt.X], true
 }
 
 func (p *Plane[T]) Set(new T, pt P2) T {
-	old := p.Get(pt)
+	old, _ := p.Get(pt)
 	p.grid[pt.Y][pt.X] = new
 	slices.Each(p.onChangeFns, func(idx int, fn PlaneChangeFn[T]) { fn(old, new, pt) })
 	return new
@@ -77,7 +83,7 @@ func (p Plane[T]) Size() int {
 
 var (
 	// up, down, left, right neighbors
-	localNeighborOffsets = []P2{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+	localNeighborOffsets = []P2{{0, -1}, {0, 1}, {-1, 0}, {1, 0}}
 	// local neighbors plus corners
 	neighborOffsets = append(localNeighborOffsets, []P2{{-1, -1}, {-1, 1}, {1, -1}, {1, 1}}...)
 )
