@@ -148,10 +148,9 @@ func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		src := scanner.Text()
-		fmt.Printf("\n# SRC=%s\n", src)
 		nibbles := slices.Map(strings.Split(src, ""), func(b string) int { return table[b[0]] })
 		txm := ParseTxm(NewBuf4(nibbles))
-		fmt.Printf("-> SumVer=%d Value=%d\n", txm.SumVer(), txm.Value())
+		fmt.Printf("\nSRC=%s\nSumVer=%d Value=%d\n", src, txm.SumVer(), txm.Value())
 	}
 	if err := scanner.Err(); err != nil {
 		log.Fatalf("error reading input: %v", err)

@@ -13,6 +13,10 @@ type P2 struct {
 	X, Y int
 }
 
+func (p2 P2) XY() (int, int) {
+	return p2.X, p2.Y
+}
+
 func (pt P2) String() string {
 	return fmt.Sprintf("Point{%d, %d}", pt.X, pt.Y)
 }
