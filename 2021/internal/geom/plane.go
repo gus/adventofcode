@@ -55,7 +55,11 @@ func (p *Plane[T]) Contains(pt P2) bool {
 	return pt.X > -1 && pt.X < b.X && pt.Y > -1 && pt.Y < b.Y
 }
 
-func (p *Plane[T]) Get(pt P2) (T, bool) {
+func (p *Plane[T]) Get(pt P2) T {
+	return p.grid[pt.Y][pt.X]
+}
+
+func (p *Plane[T]) GetOK(pt P2) (T, bool) {
 	if !p.Contains(pt) {
 		return types.Zero[T](), false
 	}
@@ -63,7 +67,7 @@ func (p *Plane[T]) Get(pt P2) (T, bool) {
 }
 
 func (p *Plane[T]) Set(new T, pt P2) T {
-	old, _ := p.Get(pt)
+	old := p.Get(pt)
 	p.grid[pt.Y][pt.X] = new
 	slices.Each(p.onChangeFns, func(idx int, fn PlaneChangeFn[T]) { fn(old, new, pt) })
 	return new

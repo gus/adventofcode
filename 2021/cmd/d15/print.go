@@ -16,7 +16,7 @@ func printPlane(p *geom.Plane[int], spaceEvery int) {
 			if x > 0 && x%spaceEvery == 0 {
 				fmt.Print(" ")
 			}
-			v, _ := p.Get(geom.P2{X: x, Y: y})
+			v := p.Get(geom.P2{X: x, Y: y})
 			fmt.Printf("%d", v)
 		}
 		fmt.Println()

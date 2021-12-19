@@ -25,8 +25,7 @@ func safestPath(g *geom.Plane[int], src geom.P2, dst geom.P2) int {
 		}
 
 		for _, n := range g.LocalNeighbors(rs.pt) {
-			nrisk, _ := g.Get(n) // LocalNeighbors only returns P2s which exist
-			risk := rs.risk + nrisk
+			risk := rs.risk + g.Get(n) // LocalNeighbors only returns P2s which exist
 			if curRisk, ok := curRisks[n]; !ok || risk < curRisk {
 				curRisks[n] = risk
 				heap.Push(&q, &RiskState{risk: risk, pt: n, path: append(rs.path, rs.pt)})
@@ -42,7 +41,7 @@ func growPlane(op *geom.Plane[int], times int) *geom.Plane[int] {
 	b := geom.P2{X: ob.X * times, Y: ob.Y * times}
 	p := geom.NewPlane[int](b)
 	p.WalkAll(func(v int, pt geom.P2) bool {
-		ov, _ := op.Get(geom.P2{X: pt.X % ob.X, Y: pt.Y % ob.Y})
+		ov := op.Get(geom.P2{X: pt.X % ob.X, Y: pt.Y % ob.Y})
 		p.Set((ov+pt.X/ob.X+pt.Y/ob.Y-1)%9+1, pt)
 		return true
 	})
