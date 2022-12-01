@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestInts(t *testing.T) {
+func TestSum_Ints(t *testing.T) {
 	testCases := []struct {
 		desc string
 		in   []int
@@ -31,7 +31,7 @@ func TestInts(t *testing.T) {
 	}
 }
 
-func TestUints(t *testing.T) {
+func TestSum_Uints(t *testing.T) {
 	testCases := []struct {
 		desc string
 		in   []uint
