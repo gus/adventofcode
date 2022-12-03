@@ -1,6 +1,7 @@
 package collections
 
-type Set[K comparable] map[K]struct{}
+type setv struct{}
+type Set[K comparable] map[K]setv
 
 func NewSet[K comparable](ks ...K) Set[K] {
 	s := Set[K]{}
@@ -10,7 +11,7 @@ func NewSet[K comparable](ks ...K) Set[K] {
 
 func (s Set[K]) Add(ks ...K) {
 	for _, k := range ks {
-		s[k] = struct{}{}
+		s[k] = setv{}
 	}
 }
 
@@ -43,8 +44,10 @@ func (s Set[K]) Merge(o Set[K]) {
 
 func (s Set[K]) Slice() []K {
 	ks := make([]K, len(s))
-	for i, k := range ks {
-		ks[i] = k
+	idx := 0
+	for k := range s {
+		ks[idx] = k
+		idx++
 	}
 	return ks
 }

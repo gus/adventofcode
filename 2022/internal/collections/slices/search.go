@@ -1,6 +1,9 @@
 package slices
 
-import "github.com/gus/adventofcode/2022/internal/types"
+import (
+	"github.com/gus/adventofcode/2022/internal/collections"
+	"github.com/gus/adventofcode/2022/internal/types"
+)
 
 type SearchFn[T any] func(elem T) bool
 
@@ -35,4 +38,12 @@ func Filter[T any](s []T, fn SearchFn[T]) []T {
 		}
 	}
 	return ts
+}
+
+// IntersectUniq will return a [[]K] containing one [K] for each element that is common
+// between the two given slices. Meaning, if each has multiple values for the same
+// [K], only one will be returned. IntersectUniq uses [collections.Set] to accomplish
+// this.
+func IntersectUniq[T comparable](a, b []T) []T {
+	return collections.NewSet(a...).Intersect(collections.NewSet(b...)).Slice()
 }
