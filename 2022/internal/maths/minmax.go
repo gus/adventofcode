@@ -22,3 +22,19 @@ func Abs[T types.OrderedNumeric](a T) T {
 	}
 	return a
 }
+
+type MinMax[T types.OrderedNumeric] struct {
+	Min     T
+	Max     T
+	applied bool
+}
+
+func (mm *MinMax[T]) Apply(n T) {
+	if !mm.applied || n < mm.Min {
+		mm.Min = n
+	}
+	if !mm.applied || n > mm.Max {
+		mm.Max = n
+	}
+	mm.applied = true
+}
