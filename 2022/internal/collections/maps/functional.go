@@ -62,3 +62,13 @@ func Keys[K comparable, V any](m map[K]V) []K {
 
 	return ks
 }
+
+func Values[K comparable, V any](m map[K]V) []V {
+	vs := []V{}
+
+	for _, v := range m {
+		vs = append(vs, v)
+	}
+
+	return vs
+}
