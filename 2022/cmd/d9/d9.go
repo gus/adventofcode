@@ -70,7 +70,7 @@ func main() {
 		log.Fatalf("error reading input: %v", err)
 	}
 
-	// TEST: part 1 (12)	part 2.a (1)	part 2.b (36)
+	// TEST: part 1.a (12)	part 2.a (1)	part 2.b (36)
 	// REAL: part 1 (5883)	part 2 (2367)
 	fmt.Printf("part 1 (%d)\tpart 2 (%d)\n", len(followTail(cmds, 1)), len(followTail(cmds, 9)))
 }
