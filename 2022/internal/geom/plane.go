@@ -18,7 +18,7 @@ func (p2 P2) XY() (int, int) {
 }
 
 func (pt P2) String() string {
-	return fmt.Sprintf("Point{%d, %d}", pt.X, pt.Y)
+	return fmt.Sprintf("P2(%d, %d)", pt.X, pt.Y)
 }
 
 type PlaneChangeFn[T any] func(old, new T, pt P2)
@@ -32,7 +32,11 @@ func NewEmptyPlane[T any]() *Plane[T] {
 	return &Plane[T]{}
 }
 
-func NewPlane[T any](bounds P2) *Plane[T] {
+func NewPlane[T any](grid [][]T) *Plane[T] {
+	return &Plane[T]{grid: grid}
+}
+
+func NewBoundedPlane[T any](bounds P2) *Plane[T] {
 	p := &Plane[T]{}
 	for y := 0; y < bounds.Y; y++ {
 		p.Append(make([]T, bounds.X))
@@ -75,6 +79,20 @@ func (p *Plane[T]) Set(new T, pt P2) T {
 	p.grid[pt.Y][pt.X] = new
 	slices.Each(p.onChangeFns, func(idx int, fn PlaneChangeFn[T]) { fn(old, new, pt) })
 	return new
+}
+
+type LocateFn[T any] func(t T) bool
+
+// LocateFirst will find the first P2 whose value matches [t], searching horizontal, then vertical.
+func (p *Plane[T]) LocateFirst(fn LocateFn[T]) (P2, bool) {
+	for y, line := range p.grid {
+		for x, t := range line {
+			if fn(t) {
+				return P2{x, y}, true
+			}
+		}
+	}
+	return P2{-1, -1}, false
 }
 
 func (p Plane[T]) Bounds() P2 {
@@ -152,4 +170,36 @@ func (p Plane[T]) WalkUp(pt P2, fn WalkFn[T]) {
 
 func (p Plane[T]) WalkDown(pt P2, fn WalkFn[T]) {
 	p.walk(pt, P2{math.MaxInt, 1}, fn)
+}
+
+type PathIncludeFn[T any] func(cur T, nxt T) bool
+
+// ShortestLocalPath finds the shortest path from [S] to [E] using a breadth-first search.
+// Each P2 on the plane (i.e. a node) is checked to see whether it has been a) visited and
+// b) valid for inclusion in the path using the [PathIncludeFn]. Returns a [[]P2] of the
+// points in the path from [S] to [E]; if not path found only [E] will be in the slice.
+func (p Plane[T]) ShortestLocalPath(S, E P2, includeFn PathIncludeFn[T]) []P2 {
+	parents := map[P2]*P2{S: nil} // track parents and node visits
+
+	q := []P2{S}
+	for len(q) > 0 {
+		cpt := q[0] // pop
+		q = q[1:]
+		if cpt == E { // done
+			break
+		}
+		cur := p.Get(cpt)
+		for _, npt := range p.LocalNeighbors(cpt) {
+			nxt := p.Get(npt)
+			if _, v := parents[npt]; !v && includeFn(cur, nxt) {
+				parents[npt] = &cpt // mark visited as well as next P2 parent
+				q = append(q, npt)
+			}
+		}
+	}
+	steps := slices.NewStack(E)
+	for wn := parents[E]; wn != nil; wn = parents[*wn] {
+		steps.Push(*wn)
+	}
+	return steps
 }

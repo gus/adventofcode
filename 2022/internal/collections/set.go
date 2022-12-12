@@ -9,16 +9,18 @@ func NewSet[K comparable](ks ...K) Set[K] {
 	return s
 }
 
-func (s Set[K]) Add(ks ...K) {
+func (s Set[K]) Add(ks ...K) Set[K] {
 	for _, k := range ks {
 		s[k] = setv{}
 	}
+	return s
 }
 
-func (s Set[K]) Remove(ks ...K) {
+func (s Set[K]) Remove(ks ...K) Set[K] {
 	for _, k := range ks {
 		delete(s, k)
 	}
+	return s
 }
 
 func (s Set[K]) Contains(k K) bool {
@@ -36,10 +38,11 @@ func (s Set[K]) Intersect(o Set[K]) Set[K] {
 	return snew
 }
 
-func (s Set[K]) Merge(o Set[K]) {
+func (s Set[K]) Merge(o Set[K]) Set[K] {
 	for k := range o {
 		s.Add(k)
 	}
+	return s
 }
 
 func (s Set[K]) Slice() []K {
@@ -50,4 +53,8 @@ func (s Set[K]) Slice() []K {
 		idx++
 	}
 	return ks
+}
+
+func (s Set[K]) Clone() Set[K] {
+	return NewSet(s.Slice()...)
 }
