@@ -8,3 +8,12 @@ func Between[T types.OrderedNumeric](x, a, b T) bool {
 	}
 	return x >= a && x <= b
 }
+
+func Cmp[T types.OrderedNumeric](a, b T) int {
+	if a < b {
+		return -1
+	} else if a > b {
+		return 1
+	}
+	return 0
+}
