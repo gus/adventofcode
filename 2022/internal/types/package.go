@@ -17,3 +17,16 @@ func Zero[T any]() T {
 	var zero T
 	return zero
 }
+
+// IsZero returns true if a's value equals the zero-value for the type.
+func IsZero[T comparable](z T) bool {
+	return z == Zero[T]()
+}
+
+// IsZero returns [a] if [z] is the type's zero-value; else it returns [b].
+func IfZero[T comparable, D any](z T, a D, b D) D {
+	if IsZero(z) {
+		return a
+	}
+	return b
+}

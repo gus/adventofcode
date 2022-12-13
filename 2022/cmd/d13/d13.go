@@ -7,10 +7,10 @@ import (
 	"log"
 	"os"
 	"sort"
-	"strings"
 
 	"github.com/gus/adventofcode/2022/internal/collections/slices"
 	"github.com/gus/adventofcode/2022/internal/maths"
+	"github.com/gus/adventofcode/2022/internal/types"
 	"github.com/gus/adventofcode/2022/internal/utils"
 )
 
@@ -21,39 +21,26 @@ type N struct {
 	injected bool
 }
 
-func (n N) String() string { // debugging
-	if n.slice {
-		return "[" + strings.Join(slices.Map(n.vs, func(v N) string { return v.String() }), ", ") + "]"
-	}
-	return fmt.Sprintf("%d", n.v)
-}
-
-func readInt(rdr []byte) (int, []byte) {
-	var ba []byte
-	for i := 0; i < len(rdr) && rdr[i] >= '0' && rdr[i] <= '9'; i++ {
-		ba = append(ba, rdr[i])
-	}
-	return utils.Atoi(string(ba)), rdr[len(ba):]
-}
-
 func parseInput(rdr []byte) (N, []byte) {
 	n := N{slice: true}
 	for len(rdr) > 0 {
-		b := rdr[0]
+		var v N
 		switch {
-		case b == ',': // skip
-			rdr = rdr[1:]
-		case b == ']': // end of list
+		case rdr[0] == ']': // end of list
 			return n, rdr[1:]
-		case b == '[': // new list
-			v, r := parseInput(rdr[1:])
-			rdr = r
-			n.vs = append(n.vs, v)
-		case b >= '0' && b <= '9': // found int
-			v, r := readInt(rdr)
-			rdr = r
-			n.vs = append(n.vs, N{v: v})
+		case rdr[0] == '[': // new list
+			v, rdr = parseInput(rdr[1:])
+		case rdr[0] >= '0' && rdr[0] <= '9': // found int
+			var ba []byte
+			for ; len(rdr) > 0 && rdr[0] >= '0' && rdr[0] <= '9'; rdr = rdr[1:] {
+				ba = append(ba, rdr[0])
+			}
+			v = N{v: utils.Atoi(string(ba))}
+		default: // skip
+			rdr = rdr[1:]
+			continue
 		}
+		n.vs = append(n.vs, v)
 	}
 	return n, []byte{} // if we get here, probably something wrong with the input
 }
@@ -75,7 +62,7 @@ func cmpN(nl, nr []N) int {
 		case nr[pos].slice: // right is a slice, left is int, make left a slice
 			cmp = cmpN([]N{nl[pos]}, nr[pos].vs)
 		default: // something impossible happened
-			log.Fatalf("WTF? @%d %s <> %s", pos, nl[pos], nr[pos])
+			log.Fatalf("WTF? @%d %v <> %v", pos, nl[pos], nr[pos])
 		}
 		pos++
 	}
@@ -83,13 +70,13 @@ func cmpN(nl, nr []N) int {
 }
 
 func part1(ns []N) int {
-	valid := 0 // find number of valid packet pairs
+	sum := 0 // find number of valid packet pairs
 	for i := 0; i < len(ns); i += 2 {
 		if cmpN(ns[i].vs, ns[i+1].vs) != -1 { // assume both roots are slices, because ... they will be
-			valid += i/2 + 1 // pair index
+			sum += i/2 + 1 // add pair index
 		}
 	}
-	return valid
+	return sum
 }
 
 func part2(ns []N) int {
@@ -98,14 +85,10 @@ func part2(ns []N) int {
 	ns = append(ns, N{injected: true, slice: true, vs: []N{{slice: true, vs: []N{{v: 6}}}}})
 	sort.Slice(ns, func(i, j int) bool { return cmpN(ns[i].vs, ns[j].vs) == 1 })
 
-	// find indices of injected packets and multiply them together
-	injProd := 1
-	for i, n := range ns {
-		if n.injected {
-			injProd *= i + 1
-		}
-	}
-	return injProd
+	// find multiply indices of injected packets together
+	return slices.ReduceEnum(ns, 1, func(acc int, i int, n N) int {
+		return acc * types.IfZero(n.injected, 1, i+1)
+	})
 }
 
 func main() {
