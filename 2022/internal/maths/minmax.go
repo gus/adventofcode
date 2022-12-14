@@ -29,7 +29,7 @@ type MinMax[T types.OrderedNumeric] struct {
 	applied bool
 }
 
-func (mm *MinMax[T]) Apply(n T) {
+func (mm *MinMax[T]) Apply(n T) *MinMax[T] {
 	if !mm.applied || n < mm.Min {
 		mm.Min = n
 	}
@@ -37,4 +37,5 @@ func (mm *MinMax[T]) Apply(n T) {
 		mm.Max = n
 	}
 	mm.applied = true
+	return mm
 }

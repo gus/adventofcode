@@ -24,7 +24,7 @@ func (pt P2) String() string {
 type PlaneChangeFn[T any] func(old, new T, pt P2)
 
 type Plane[T any] struct {
-	grid        [][]T
+	Cells       [][]T
 	onChangeFns []PlaneChangeFn[T]
 }
 
@@ -33,7 +33,7 @@ func NewEmptyPlane[T any]() *Plane[T] {
 }
 
 func NewPlane[T any](grid [][]T) *Plane[T] {
-	return &Plane[T]{grid: grid}
+	return &Plane[T]{Cells: grid}
 }
 
 func NewBoundedPlane[T any](bounds P2) *Plane[T] {
@@ -45,7 +45,7 @@ func NewBoundedPlane[T any](bounds P2) *Plane[T] {
 }
 
 func (p *Plane[T]) Append(r []T) *Plane[T] {
-	p.grid = append(p.grid, r)
+	p.Cells = append(p.Cells, r)
 	return p
 }
 
@@ -64,19 +64,19 @@ func (p *Plane[T]) Contains(pt P2) bool {
 }
 
 func (p *Plane[T]) Get(pt P2) T {
-	return p.grid[pt.Y][pt.X]
+	return p.Cells[pt.Y][pt.X]
 }
 
 func (p *Plane[T]) GetOK(pt P2) (T, bool) {
 	if !p.Contains(pt) {
 		return types.Zero[T](), false
 	}
-	return p.grid[pt.Y][pt.X], true
+	return p.Cells[pt.Y][pt.X], true
 }
 
 func (p *Plane[T]) Set(new T, pt P2) T {
 	old := p.Get(pt)
-	p.grid[pt.Y][pt.X] = new
+	p.Cells[pt.Y][pt.X] = new
 	slices.Each(p.onChangeFns, func(idx int, fn PlaneChangeFn[T]) { fn(old, new, pt) })
 	return new
 }
@@ -85,7 +85,7 @@ type LocateFn[T any] func(t T) bool
 
 // LocateFirst will find the first P2 whose value matches [t], searching horizontal, then vertical.
 func (p *Plane[T]) LocateFirst(fn LocateFn[T]) (P2, bool) {
-	for y, line := range p.grid {
+	for y, line := range p.Cells {
 		for x, t := range line {
 			if fn(t) {
 				return P2{x, y}, true
@@ -96,16 +96,30 @@ func (p *Plane[T]) LocateFirst(fn LocateFn[T]) (P2, bool) {
 }
 
 func (p Plane[T]) Bounds() P2 {
-	if len(p.grid) == 0 {
+	if len(p.Cells) == 0 {
 		return P2{0, 0}
 	}
-	return P2{len(p.grid[0]), len(p.grid)}
+	return P2{len(p.Cells[0]), len(p.Cells)}
 }
 
 func (p Plane[T]) Size() int {
 	b := p.Bounds()
 	return b.X * b.Y
 }
+
+func (p Plane[T]) Width() int {
+	return p.Bounds().X
+}
+
+func (p Plane[T]) Height() int {
+	return p.Bounds().Y
+}
+
+// neighbors
+
+var (
+	StepUp, StepDown, StepLeft, StepRight = P2{0, -1}, P2{0, 1}, P2{-1, 0}, P2{1, 0}
+)
 
 func (p Plane[T]) OnEdge(pt P2) bool {
 	b := p.Bounds()
@@ -114,7 +128,7 @@ func (p Plane[T]) OnEdge(pt P2) bool {
 
 var (
 	// up, down, left, right neighbors
-	localNeighborOffsets = []P2{{0, -1}, {0, 1}, {-1, 0}, {1, 0}}
+	localNeighborOffsets = []P2{StepUp, StepLeft, StepRight, StepDown}
 	// local neighbors plus corners
 	neighborOffsets = append(localNeighborOffsets, []P2{{-1, -1}, {-1, 1}, {1, -1}, {1, 1}}...)
 )
@@ -138,6 +152,41 @@ func (p Plane[T]) LocalNeighbors(pt P2) []P2 {
 	return p.neighbors(pt, localNeighborOffsets)
 }
 
+// Step returns a new [P2] applying [step] to [pt]. If new [P2] is outside the bounds of the
+// plane, returns new [P2] and false; otherwise, returns new [P2] and true. See [StepUp],
+// [StepDown], [StepLeft], and [StepRight] for examples of to use a step P2.
+func (p Plane[T]) Step(pt P2, step P2) (P2, bool) {
+	b := p.Bounds()
+	npt := P2{X: pt.X + step.X, Y: pt.Y + step.Y}
+	return npt, npt.X >= 0 && npt.Y >= 0 && npt.X < b.X && npt.Y < b.Y
+}
+
+// Up returns a [P2] above [pt]. If [P2] above is outside the bounds of the plane, returns
+// [P2] above and false; otherwise, returns [P2] above and true.
+func (p Plane[T]) Up(pt P2) (P2, bool) {
+	return p.Step(pt, StepUp)
+}
+
+// Down returns a [P2] below [pt]. If [P2] below is outside the bounds of the plane, returns
+// [P2] below and false; otherwise, returns [P2] below and true.
+func (p Plane[T]) Down(pt P2) (P2, bool) {
+	return p.Step(pt, StepDown)
+}
+
+// Left returns a [P2] left of [pt]. If [P2] left is outside the bounds of the plane, returns
+// [P2] left and false; otherwise, returns [P2] left and true.
+func (p Plane[T]) Left(pt P2) (P2, bool) {
+	return p.Step(pt, StepLeft)
+}
+
+// Right returns a [P2] right of [pt]. If [P2] right is outside the bounds of the plane, returns
+// [P2] right and false; otherwise, returns [P2] right and true.
+func (p Plane[T]) Right(pt P2) (P2, bool) {
+	return p.Step(pt, StepRight)
+}
+
+// traversals
+
 type WalkFn[T any] func(T, P2) bool
 
 func (p Plane[T]) walk(pt, step P2, fn WalkFn[T]) {
@@ -145,7 +194,7 @@ func (p Plane[T]) walk(pt, step P2, fn WalkFn[T]) {
 	w, h, x, y, xstep, ystep := b.X, b.Y, pt.X, pt.Y, step.X, step.Y
 	for y := y; y < h && y >= 0; y += ystep {
 		for x := x; x < w && x >= 0; x += xstep {
-			if !fn(p.grid[y][x], P2{x, y}) {
+			if !fn(p.Cells[y][x], P2{x, y}) {
 				return
 			}
 		}
