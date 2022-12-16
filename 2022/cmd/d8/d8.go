@@ -37,7 +37,7 @@ func scenicScore(srcpt geom.P2, srch int, fn dirWalkFn) int {
 }
 
 func main() {
-	p := geom.NewEmptyPlane[int]()
+	p := geom.NewEmptyBoundedPlane[int]()
 	buf := bufio.NewScanner(os.Stdin)
 	for buf.Scan() {
 		line := buf.Text()

@@ -1,6 +1,10 @@
 package maths
 
-import "github.com/gus/adventofcode/2022/internal/types"
+import (
+	"fmt"
+
+	"github.com/gus/adventofcode/2022/internal/types"
+)
 
 func Min[T types.OrderedNumeric](a, b T) T {
 	if b < a {
@@ -29,6 +33,10 @@ type MinMax[T types.OrderedNumeric] struct {
 	applied bool
 }
 
+func (mm *MinMax[T]) Copy() *MinMax[T] {
+	return &MinMax[T]{Min: mm.Min, Max: mm.Max, applied: mm.applied}
+}
+
 func (mm *MinMax[T]) Apply(n T) *MinMax[T] {
 	if !mm.applied || n < mm.Min {
 		mm.Min = n
@@ -38,4 +46,8 @@ func (mm *MinMax[T]) Apply(n T) *MinMax[T] {
 	}
 	mm.applied = true
 	return mm
+}
+
+func (mm MinMax[T]) String() string {
+	return fmt.Sprintf("MinMax(%v %v)", mm.Min, mm.Max)
 }

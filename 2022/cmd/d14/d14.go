@@ -28,7 +28,7 @@ func parsePath(line []byte) []geom.P2 {
 	})
 }
 
-func placeRocks(p *geom.Plane[state], path []geom.P2) *geom.Plane[state] {
+func placeRocks(p *geom.BoundedPlane[state], path []geom.P2) *geom.BoundedPlane[state] {
 	lp2 := path[0]
 	for _, p2 := range path[1:] {
 		if p2.X == lp2.X { // draw vertical
@@ -48,7 +48,7 @@ func placeRocks(p *geom.Plane[state], path []geom.P2) *geom.Plane[state] {
 	return p
 }
 
-func poundRocks(p *geom.Plane[state], entryP2 geom.P2, expander expandfn) int {
+func poundRocks(p *geom.BoundedPlane[state], entryP2 geom.P2, expander expandfn) int {
 	var resting int
 	inside := true
 	sand := entryP2
@@ -99,11 +99,11 @@ func poundRocks(p *geom.Plane[state], entryP2 geom.P2, expander expandfn) int {
 	return resting
 }
 
-type expandfn func(*geom.Plane[state]) *geom.Plane[state]
+type expandfn func(*geom.BoundedPlane[state]) *geom.BoundedPlane[state]
 
-func part2Expander(p *geom.Plane[state]) *geom.Plane[state] {
+func part2Expander(p *geom.BoundedPlane[state]) *geom.BoundedPlane[state] {
 	// increases x by 1 in both directions, ensure rocks on the bottom row
-	np := geom.NewEmptyPlane[state]()
+	np := geom.NewEmptyBoundedPlane[state]()
 	for i, row := range p.Cells {
 		if i == p.Height()-1 { // last row is rocks
 			np.Append(append(append([]state{Rock}, row...), Rock))
@@ -156,11 +156,11 @@ func main() {
 	part2 := poundRocks(p2, entryPt, part2Expander)
 
 	// TEST: part 1.a[1] (24)	part 2.a (93)
-	// REAL: part 1 (799)	part 2 ()
+	// REAL: part 1 (799)	part 2 (29076)
 	fmt.Printf("part 1 (%d)\tpart 2 (%d)\n", part1, part2)
 }
 
-func printPlane(p *geom.Plane[state]) {
+func printPlane(p *geom.BoundedPlane[state]) {
 	bnd := p.Bounds()
 	fmt.Printf("BOUND %s\n", bnd)
 	p.WalkAll(func(s state, p2 geom.P2) bool {

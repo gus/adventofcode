@@ -23,13 +23,13 @@ func hasValidHeight(ch, nh byte) bool {
 	return H[nh] <= H[ch]+1
 }
 
-func part1(p *geom.Plane[byte]) int {
+func part1(p *geom.BoundedPlane[byte]) int {
 	S, _ := p.LocateFirst(func(h byte) bool { return h == 'S' })
 	E, _ := p.LocateFirst(func(h byte) bool { return h == 'E' })
 	return len(p.ShortestLocalPath(S, E, hasValidHeight)) - 1
 }
 
-func part2(p *geom.Plane[byte]) int {
+func part2(p *geom.BoundedPlane[byte]) int {
 	starters := []geom.P2{}
 	p.WalkAll(func(b byte, pt geom.P2) bool { // find the starting P2s
 		if H[b] == H['a'] {
@@ -50,7 +50,7 @@ func part2(p *geom.Plane[byte]) int {
 
 func main() {
 	bs, _ := io.ReadAll(os.Stdin)
-	p := geom.NewPlane(bytes.Split(bs, []byte{'\n'}))
+	p := geom.NewFilledBoundedPlane(bytes.Split(bs, []byte{'\n'}))
 	// TEST: part 1.a (31)	part 2.a (29)
 	// REAL: part 1 (462)	part 2 (451)
 	fmt.Printf("part 1 (%d)\tpart 2 (%d)\n", part1(p), part2(p))
