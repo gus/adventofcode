@@ -1,2 +1,5 @@
 targets/
+target/
 tmp/
+
+.vscode/
