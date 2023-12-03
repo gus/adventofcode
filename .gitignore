@@ -1,2 +1,5 @@
 targets/
 tmp/
+
+# haskell
+dist-newstyle/
