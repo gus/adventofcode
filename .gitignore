@@ -3,3 +3,5 @@ tmp/
 
 # haskell
 dist-newstyle/
+.stack-work/
+*~

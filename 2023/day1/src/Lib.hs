@@ -1,4 +1,7 @@
-module Day1 (calibrateInputs) where
+module Lib (
+  calibrateInputs
+) where
+
 import Data.Char (isDigit, digitToInt)
 import Data.List (isPrefixOf, findIndex)
 import Data.Maybe (fromJust, isJust)
