@@ -1,0 +1,73 @@
+cabal-version: 2.2
+
+-- This file has been generated from package.yaml by hpack version 0.35.2.
+--
+-- see: https://github.com/sol/hpack
+
+name:           day4
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/gus/day4#readme>
+homepage:       https://github.com/gus/day4#readme
+bug-reports:    https://github.com/gus/day4/issues
+author:         Gus K.
+maintainer:     gus@heavyset.io
+copyright:      2023 Gus K.
+license:        BSD-3-Clause
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/gus/day4
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_day4
+  autogen-modules:
+      Paths_day4
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      MissingH
+    , base >=4.7 && <5
+    , containers
+  default-language: Haskell2010
+
+executable day4-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_day4
+  autogen-modules:
+      Paths_day4
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MissingH
+    , base >=4.7 && <5
+    , containers
+    , day4
+  default-language: Haskell2010
+
+test-suite day4-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_day4
+  autogen-modules:
+      Paths_day4
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MissingH
+    , base >=4.7 && <5
+    , containers
+    , day4
+  default-language: Haskell2010
