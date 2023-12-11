@@ -1,0 +1,122 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.2.
+--
+-- see: https://github.com/sol/hpack
+
+name:           gus-aoc-haskell
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/gus/adventofcode/aoc-haskell#readme>
+homepage:       https://github.com/gus/adventofcode#readme
+bug-reports:    https://github.com/gus/adventofcode/issues
+author:         Gus K
+maintainer:     gus@heavyset.io
+copyright:      2023 Gus Knowlden
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+    LICENSE
+
+source-repository head
+  type: git
+  location: https://github.com/gus/adventofcode
+  subdir: aoc-haskell
+
+executable 2023d1
+  main-is: 01.hs
+  other-modules:
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable 2023d2
+  main-is: 02.hs
+  other-modules:
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MissingH
+    , base >=4.7 && <5
+  default-language: Haskell2010
+
+executable 2023d3
+  main-is: 03.hs
+  other-modules:
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MissingH
+    , base >=4.7 && <5
+    , containers
+  default-language: Haskell2010
+
+executable 2023d4
+  main-is: 04.hs
+  other-modules:
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MissingH
+    , base >=4.7 && <5
+  default-language: Haskell2010
+
+executable 2023d5
+  main-is: 05.hs
+  other-modules:
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable 2023d6
+  main-is: 06.hs
+  other-modules:
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable 2023d7
+  main-is: 07.hs
+  other-modules:
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , extra
+    , sort
+  default-language: Haskell2010
+
+test-suite aoc-haskell-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , gus-aoc-haskell
+  default-language: Haskell2010

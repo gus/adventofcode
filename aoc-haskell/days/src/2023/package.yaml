@@ -1,0 +1,47 @@
+:2023-base-exec: &2023-base-exec
+  source-dirs:
+    - days/src/2023
+  ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+
+:2023-executables: &2023-executables
+  2023d1:
+    <<: *2023-base-exec
+    main: 01.hs
+
+  2023d2:
+    <<: *2023-base-exec
+    main: 02.hs
+    dependencies:
+      - MissingH
+
+  2023d3:
+    <<: *2023-base-exec
+    main: 03.hs
+    dependencies:
+      - MissingH
+      - containers
+
+  2023d4:
+    <<: *2023-base-exec
+    main: 04.hs
+    dependencies:
+      - MissingH
+
+  2023d5:
+    <<: *2023-base-exec
+    main: 05.hs
+
+  2023d6:
+    <<: *2023-base-exec
+    main: 06.hs
+
+  2023d7:
+    <<: *2023-base-exec
+    main: 07.hs
+    dependencies:
+      - sort
+      - extra
+
