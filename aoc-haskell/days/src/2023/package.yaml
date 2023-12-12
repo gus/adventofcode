@@ -45,3 +45,6 @@
       - sort
       - extra
 
+  2023d8:
+    <<: *2023-base-exec
+    main: 08.hs
