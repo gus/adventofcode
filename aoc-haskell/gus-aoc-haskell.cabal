@@ -119,6 +119,17 @@ executable 2023d8
       base >=4.7 && <5
   default-language: Haskell2010
 
+executable 2023d9
+  main-is: 09.hs
+  other-modules:
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
 test-suite aoc-haskell-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
