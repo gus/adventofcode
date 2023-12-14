@@ -34,11 +34,9 @@ ghc-options:
   - -Wpartial-fields
   - -Wredundant-constraints
 
-_2023: !include "days/src/2023/package.yaml"
+source-dirs: src
 
-#library:
-#  source-dirs:
-#    - days/src/2023
+_2023: !include "days/src/2023/package.yaml"
 
 executables:
   <<: *2023-executables

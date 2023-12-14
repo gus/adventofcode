@@ -52,3 +52,7 @@
   2023d9:
     <<: *2023-base-exec
     main: 09.hs
+
+  2023d10:
+    <<: *2023-base-exec
+    main: 10.hs
