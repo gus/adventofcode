@@ -1,6 +1,8 @@
 module Main (main) where
 
 import Data.Maybe (fromJust)
+
+import AOC
 import AOC.Point
 
 main :: IO ()
@@ -13,11 +15,6 @@ main = do
 -- examples: 1/[4,1]  2/[8,1]  3/[23,4]  4/[70,8]  5/[80,10]
 -- solution: [6927,467]
 -- ghonzo (sanity check): [6773,493]
-
-tuplets :: [a] -> [(a, a)]
-tuplets [p0, p1] = [(p0, p1)]
-tuplets (p0 : p1 : ps) = (p0, p1) : tuplets (p1 : ps)
-tuplets _ = []
 
 ptArea :: (Pt, Pt) -> Float
 ptArea ((ax, ay), (bx, by)) = fromIntegral (bx - ax) * (fromIntegral (ay + by) / 2)

@@ -1,16 +1,5 @@
 module AOC.Point where
 
--- module AOC.Point (
---   -- boundary checks
---   (@><),
-
---   -- lookup
---   (@), (@?), (@?>),
-
---   -- movement
---   (@-), (@+), (@\), (@/)
--- ) where
-
 import qualified GHC.Stack.Types
 
 type Pt = (Int, Int)

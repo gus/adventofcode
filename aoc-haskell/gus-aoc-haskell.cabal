@@ -28,12 +28,14 @@ source-repository head
 executable 2023d1
   main-is: 01.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       days/src/2023
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
@@ -41,12 +43,29 @@ executable 2023d1
 executable 2023d10
   main-is: 10.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       days/src/2023
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable 2023d11
+  main-is: 11.hs
+  other-modules:
+      AOC
+      AOC.Plane
+      AOC.Point
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      src
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
@@ -54,12 +73,14 @@ executable 2023d10
 executable 2023d2
   main-is: 02.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       days/src/2023
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       MissingH
     , base >=4.7 && <5
@@ -68,12 +89,14 @@ executable 2023d2
 executable 2023d3
   main-is: 03.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       days/src/2023
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       MissingH
     , base >=4.7 && <5
@@ -83,12 +106,14 @@ executable 2023d3
 executable 2023d4
   main-is: 04.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       days/src/2023
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       MissingH
     , base >=4.7 && <5
@@ -97,12 +122,14 @@ executable 2023d4
 executable 2023d5
   main-is: 05.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       days/src/2023
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
@@ -110,12 +137,14 @@ executable 2023d5
 executable 2023d6
   main-is: 06.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       days/src/2023
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
@@ -123,12 +152,14 @@ executable 2023d6
 executable 2023d7
   main-is: 07.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       days/src/2023
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , extra
@@ -138,12 +169,14 @@ executable 2023d7
 executable 2023d8
   main-is: 08.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       days/src/2023
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
@@ -151,12 +184,14 @@ executable 2023d8
 executable 2023d9
   main-is: 09.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       days/src/2023
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
   default-language: Haskell2010
@@ -165,12 +200,14 @@ test-suite aoc-haskell-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      AOC
+      AOC.Plane
       AOC.Point
       Paths_gus_aoc_haskell
   hs-source-dirs:
       src
       test
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , gus-aoc-haskell
