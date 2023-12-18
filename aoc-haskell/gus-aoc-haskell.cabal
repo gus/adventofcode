@@ -25,6 +25,21 @@ source-repository head
   location: https://github.com/gus/adventofcode
   subdir: aoc-haskell
 
+executable 2023d0
+  main-is: 0.hs
+  other-modules:
+      AOC
+      AOC.Plane
+      AOC.Point
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      src
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
 executable 2023d1
   main-is: 01.hs
   other-modules:
@@ -68,6 +83,23 @@ executable 2023d11
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+  default-language: Haskell2010
+
+executable 2023d12
+  main-is: 12.hs
+  other-modules:
+      AOC
+      AOC.Plane
+      AOC.Point
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      src
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , regex-base
+    , regex-posix
   default-language: Haskell2010
 
 executable 2023d2

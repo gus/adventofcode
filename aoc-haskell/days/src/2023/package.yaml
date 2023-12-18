@@ -60,3 +60,15 @@
   2023d11:
     <<: *2023-base-exec
     main: 11.hs
+
+  2023d12:
+    <<: *2023-base-exec
+    main: 12.hs
+    dependencies:
+      - regex-base
+      - regex-posix
+
+  2023d0:
+    <<: *2023-base-exec
+    # scratch pad for testing things
+    main: 0.hs
