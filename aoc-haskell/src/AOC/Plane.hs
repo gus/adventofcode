@@ -28,6 +28,15 @@ toList grid = [P2 (C x y) a | (y, r) <- zip [0 ..] grid, (x, a) <- zip [0 ..] r]
 toPlane :: [[a]] -> [[P2 a]]
 toPlane grid = [[P2 (C x y) a | (x, a) <- zip [0 ..] r] | (y, r) <- zip [0 ..] grid]
 
+-- | height returns the max y value
+height :: [[P2 a]] -> Int
+height = length
+
+-- | width returns the max x value
+width :: [[P2 a]] -> Int
+width [] = 0
+width (r:_) = length r
+
 -- | row returns a list of values at the given row (0-indexed).
 row :: (GHC.Stack.Types.HasCallStack) => [[a]] -> Int -> [a]
 row = (!!)

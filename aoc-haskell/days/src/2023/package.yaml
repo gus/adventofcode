@@ -7,6 +7,11 @@
     - -with-rtsopts=-N
 
 :2023-executables: &2023-executables
+  2023d0:
+    <<: *2023-base-exec
+    # scratch pad for testing things
+    main: 0.hs
+
   2023d1:
     <<: *2023-base-exec
     main: 01.hs
@@ -64,11 +69,7 @@
   2023d12:
     <<: *2023-base-exec
     main: 12.hs
-    dependencies:
-      - regex-base
-      - regex-posix
 
-  2023d0:
+  2023d13:
     <<: *2023-base-exec
-    # scratch pad for testing things
-    main: 0.hs
+    main: 13.hs

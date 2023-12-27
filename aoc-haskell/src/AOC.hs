@@ -21,3 +21,8 @@ btw a n b = n > a && n < b
 
 btwi :: Ord a => a -> a -> a -> Bool
 btwi a n b = n >= a && n <= b
+
+fnz :: [Int] -> Int
+fnz [] = 0
+fnz (0:ns) = fnz ns
+fnz (n:_) = n

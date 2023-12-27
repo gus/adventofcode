@@ -2,9 +2,7 @@ module Main (main) where
 
 import Data.List (intercalate, tails)
 
-type Rec = (String, [Int])
-
-parseInput :: [String] -> [Rec]
+parseInput :: [String] -> [(String, [Int])]
 parseInput = map ((\s -> (head s, read ("[" ++ last s ++ "]"))) . words)
 
 main :: IO ()
