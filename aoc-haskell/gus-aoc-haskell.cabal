@@ -29,6 +29,7 @@ executable 2023d0
   main-is: 0.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -45,6 +46,7 @@ executable 2023d1
   main-is: 01.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -61,6 +63,7 @@ executable 2023d10
   main-is: 10.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -77,6 +80,7 @@ executable 2023d11
   main-is: 11.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -93,6 +97,7 @@ executable 2023d12
   main-is: 12.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -109,6 +114,7 @@ executable 2023d13
   main-is: 13.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -121,10 +127,29 @@ executable 2023d13
       base >=4.7 && <5
   default-language: Haskell2010
 
+executable 2023d14
+  main-is: 14.hs
+  other-modules:
+      AOC
+      AOC.List
+      AOC.Plane
+      AOC.Point
+      AOC.Strings
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      src
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MissingH
+    , base >=4.7 && <5
+  default-language: Haskell2010
+
 executable 2023d2
   main-is: 02.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -142,6 +167,7 @@ executable 2023d3
   main-is: 03.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -160,6 +186,7 @@ executable 2023d4
   main-is: 04.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -177,6 +204,7 @@ executable 2023d5
   main-is: 05.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -193,6 +221,7 @@ executable 2023d6
   main-is: 06.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -209,6 +238,7 @@ executable 2023d7
   main-is: 07.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -227,6 +257,7 @@ executable 2023d8
   main-is: 08.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -243,6 +274,7 @@ executable 2023d9
   main-is: 09.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings
@@ -260,6 +292,7 @@ test-suite aoc-haskell-test
   main-is: Spec.hs
   other-modules:
       AOC
+      AOC.List
       AOC.Plane
       AOC.Point
       AOC.Strings

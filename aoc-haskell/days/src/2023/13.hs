@@ -2,6 +2,7 @@ module Main (main) where
 
 import AOC (fnz)
 import AOC.Strings (rcw)
+import AOC.List (fold2l)
 
 main :: IO ()
 main = do
@@ -18,12 +19,12 @@ parsePatterns c = go [] (lines c)
   where
     go buf [] = [buf | not (null buf)]
     go buf ("" : ss) = buf : go [] ss
-    go buf (s : ss) = go (buf++[s]) ss
+    go buf (s : ss) = go (buf ++ [s]) ss
 
 mirrorPos :: Int -> [String] -> Int
 mirrorPos diffs ptn = go [head ptn] (tail ptn)
   where
-    offby as bs = sum $ zipWith (\a b -> if a == b then 0 else 1) as bs
+    offby = fold2l (\acc (a, b) -> if a == b then acc else acc + 1) 0
     go _ [] = 0
     go buf trl@(r : rs)
       | diffs == sum (zipWith offby buf trl) = length buf

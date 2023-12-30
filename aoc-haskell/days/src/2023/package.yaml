@@ -73,3 +73,9 @@
   2023d13:
     <<: *2023-base-exec
     main: 13.hs
+
+  2023d14:
+    <<: *2023-base-exec
+    main: 14.hs
+    dependencies:
+      - MissingH

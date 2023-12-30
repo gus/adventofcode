@@ -1,5 +1,7 @@
 module AOC where
 
+import Data.List (intercalate)
+
 tuplets :: [a] -> [(a, a)]
 tuplets [a0, a1] = [(a0, a1)]
 tuplets (a0 : a1 : ps) = (a0, a1) : tuplets (a1 : ps)
@@ -26,3 +28,7 @@ fnz :: [Int] -> Int
 fnz [] = 0
 fnz (0:ns) = fnz ns
 fnz (n:_) = n
+
+-- | p2s pretty prints a list of strings
+p2s :: [String] -> IO ()
+p2s = putStr . intercalate "\n"
