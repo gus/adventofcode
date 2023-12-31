@@ -145,6 +145,24 @@ executable 2023d14
     , base >=4.7 && <5
   default-language: Haskell2010
 
+executable 2023d15
+  main-is: 15.hs
+  other-modules:
+      AOC
+      AOC.List
+      AOC.Plane
+      AOC.Point
+      AOC.Strings
+      Paths_gus_aoc_haskell
+  hs-source-dirs:
+      src
+      days/src/2023
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      MissingH
+    , base >=4.7 && <5
+  default-language: Haskell2010
+
 executable 2023d2
   main-is: 02.hs
   other-modules:
