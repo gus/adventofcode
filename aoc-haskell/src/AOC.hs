@@ -31,4 +31,4 @@ fnz (n:_) = n
 
 -- | p2s pretty prints a list of strings
 p2s :: [String] -> IO ()
-p2s = putStr . intercalate "\n"
+p2s = putStrLn . intercalate "\n"

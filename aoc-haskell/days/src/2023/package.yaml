@@ -85,3 +85,7 @@
     main: 15.hs
     dependencies:
       - MissingH
+
+  2023d16:
+    <<: *2023-base-exec
+    main: 16.hs

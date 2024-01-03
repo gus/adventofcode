@@ -1,7 +1,7 @@
 module Main (main) where
 
 import AOC (btw, maxmin)
-import AOC.Plane (C (..), P2 (..), col, toList)
+import AOC.Plane (P2 (..), col, toList)
 import Data.List (nub)
 
 main :: IO ()
@@ -25,7 +25,7 @@ gravEfx rs = (emptyCols, emptyRows)
 minDist :: Int -> ([Int], [Int]) -> [P2 Char] -> Int
 minDist _ _ [] = 0
 minDist _ _ [_] = 0
-minDist mag fxs (P2 (C x y) _ : p2s) = sum dists + minDist mag fxs p2s
+minDist mag fxs (P2 (x, y) _ : p2s) = sum dists + minDist mag fxs p2s
   where
     delta fx (a, b) = a + (mag - 1) * length (filter (\c -> btw b c a) fx) - b
-    dists = [delta (fst fxs) (maxmin (nx, x)) + delta (snd fxs) (maxmin (ny, y)) | P2 (C nx ny) _ <- p2s]
+    dists = [delta (fst fxs) (maxmin (nx, x)) + delta (snd fxs) (maxmin (ny, y)) | P2 (nx, ny) _ <- p2s]
